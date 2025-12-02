@@ -177,6 +177,14 @@ body {
     overflow: hidden;
 }
 
+@media (max-width: 768px) {
+    .hero {
+        padding: var(--spacing-md) var(--spacing-sm);
+        min-height: auto;
+        padding-top: 80px;
+    }
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -318,6 +326,12 @@ body {
     font-weight: 400;
 }
 
+@media (max-width: 768px) {
+    .greeting {
+        font-size: 1.125rem;
+    }
+}
+
 .name-highlight {
     display: block;
     font-size: 4rem;
@@ -336,11 +350,24 @@ body {
     font-weight: 500;
 }
 
+@media (max-width: 768px) {
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+}
+
 .hero-description {
     font-size: 1.125rem;
     color: var(--text-muted);
     max-width: 600px;
     line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .hero-description {
+        font-size: 0.9375rem;
+        line-height: 1.6;
+    }
 }
 
 .hero-stats {
@@ -1043,6 +1070,20 @@ section {
 
     .hero-stats {
         grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-sm);
+    }
+
+    .stat-item {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.8125rem;
     }
 
     .section-title {
@@ -1074,10 +1115,23 @@ section {
     .hero-actions {
         flex-direction: column;
         width: 100%;
+        gap: var(--spacing-xs);
     }
 
     .btn {
         width: 100%;
         justify-content: center;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9375rem;
+    }
+
+    .social-links {
+        margin-top: var(--spacing-xs);
+    }
+
+    .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.125rem;
     }
 }
