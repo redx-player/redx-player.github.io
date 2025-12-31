@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">المتجر الذكي - إدارة التجزئة الذكية</title>
+    <meta name="description"
+        content="حل نقاط البيع والمخزون الكل في واحد لتجار التجزئة المعاصرين. قم بتبسيط عملك مع المتجر الذكي.">
+    <link rel="icon" type="image/png" href="smartstore/images/logo2.png">
+
+    <!-- Fonts: Inter & Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-glow {
+                text-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+            }
+            .glass {
+                @apply bg-white/80 backdrop-blur-md border border-white/20;
+            }
+            .dark .glass {
+                @apply bg-slate-900/80 border-slate-700/30;
+            }
+        }
+        body {
+            @apply text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 transition-colors duration-300 font-arabic;
+        }
+        :lang(en) body {
+            @apply font-sans;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            @apply text-slate-900 dark:text-white font-bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 glass shadow-sm transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img src="smartstore/images/logo.png" alt="Smart Store Logo" class="h-10 w-auto">
+                    <span class="text-xl font-bold tracking-tight">Smart<span class="text-brand-600">Store</span></span>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8 rtl:space-x-reverse">
+                    <a href="#features" class="text-sm font-medium hover:text-brand-600 transition-colors"
+                        data-i18n="navFeatures">المميزات</a>
+                    <a href="#showcase" class="text-sm font-medium hover:text-brand-600 transition-colors"
+                        data-i18n="navShowcase">العرض</a>
+                    <a href="#benefits" class="text-sm font-medium hover:text-brand-600 transition-colors"
+                        data-i18n="navBenefits">لماذا نحن</a>
+                    <a href="#footer" class="text-sm font-medium hover:text-brand-600 transition-colors"
+                        data-i18n="navContact">اتصل بنا</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button id="lang-toggle"
+                        class="px-3 py-1 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                        English
+                    </button>
+                    <button id="theme-toggle"
+                        class="p-2 text-slate-500 hover:text-brand-600 transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <a href="#"
+                        class="px-5 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                        data-i18n="navDownload">
+                        حمل الآن
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-lang-toggle" class="text-sm font-medium text-slate-600 dark:text-slate-300">
+                        EN
+                    </button>
+                    <button id="mobile-menu-btn"
+                        class="p-2 rounded-md text-slate-600 hover:text-brand-600 hover:bg-slate-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-right rtl:text-right ltr:text-left">
+                <a href="#features"
+                    class="block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800"
+                    data-i18n="navFeatures">المميزات</a>
+                <a href="#showcase"
+                    class="block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800"
+                    data-i18n="navShowcase">العرض</a>
+                <a href="#benefits"
+                    class="block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800"
+                    data-i18n="navBenefits">لماذا نحن</a>
+                <div class="pt-4 flex items-center justify-between px-3">
+                    <span class="font-medium text-sm" data-i18n="themeLabel">المظهر</span>
+                    <button id="mobile-theme-toggle"
+                        class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-brand-600">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
+                <a href="#"
+                    class="block mt-4 text-center px-4 py-3 rounded-lg bg-brand-600 text-white font-bold shadow-lg"
+                    data-i18n="heroDownloadWin">
+                    تحميل لنظام ويندوز
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-30 dark:opacity-20 pointer-events-none">
+            <div
+                class="absolute top-0 left-0 w-1/3 h-1/3 bg-brand-200/50 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2">
+            </div>
+            <div
+                class="absolute bottom-0 right-0 w-1/3 h-1/3 bg-blue-200/50 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2">
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-sm font-semibold mb-4 border border-brand-100 dark:border-brand-700/50 dir-ltr rtl:flex-row-reverse"
+                    dir="ltr">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                    </span>
+                    <span data-i18n="versionBadge">الإصدار 2.0 متاح الآن</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl lg:text-7xl tracking-tight leading-tight text-glow">
+                    <span data-i18n="heroTitle1">أذكى طريقة</span> <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-blue-500"
+                        data-i18n="heroTitle2">لإدارة متجرك</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto"
+                    data-i18n="heroSubtitle">
+                    حل نقاط البيع والمخزون الشامل المصمم لتجار التجزئة المعاصرين. آمن، يعمل دون اتصال، ومصمم بشكل جميل.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <a href="#"
+                        class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-lg shadow-xl shadow-brand-500/30 transition-all transform hover:-translate-y-1 hover:shadow-2xl flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-windows text-xl"></i> <span data-i18n="heroDownloadWin">تحميل لنظام
+                            ويندوز</span>
+                    </a>
+                    <a href="#"
+                        class="w-full sm:w-auto px-8 py-4 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-white border border-slate-200 dark:border-slate-700 font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> <span data-i18n="heroWatchDemo">شاهد العرض</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image / Dashboard Mockup -->
+            <div class="mt-16 md:mt-24 relative max-w-6xl mx-auto animate-float">
+                <div
+                    class="rounded-xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                    <div class="h-8 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 flex items-center gap-2 px-4 dir-ltr"
+                        dir="ltr">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+                    </div>
+                    <!-- Using placeholder for now, would be replaced by actual app screenshot -->
+                    <div class="relative bg-slate-50 dark:bg-slate-900 group">
+                        <img src="smartstore/images/dashboard.png" alt="Smart Store Dashboard" class="w-full h-auto">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-10">
+                            <span class="text-white font-medium" data-i18n="dashboardCaption">عرض لوحة التحكم
+                                التفاعلية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 bg-white dark:bg-slate-900 relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl mb-4" data-i18n="featuresTitle">كل ما تحتاجه لتشغيل عملك</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-lg" data-i18n="featuresSubtitle">وحدات قوية مصممة
+                    للعمل معًا بسلاسة.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div
+                    class="group p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-brand-100 dark:bg-brand-900/50 flex items-center justify-center text-brand-600 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-cash-register text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl mb-3" data-i18n="feat1Title">فواتير ذكية (POS)</h3>
+                    <p class="text-slate-500 dark:text-slate-400" data-i18n="feat1Desc">إدخال سريع للمبيعات مع دعم
+                        الباركود. مصمم للسرعة مع التنقل الكامل عبر لوحة المفاتيح والتحقق الفوري من المخزون.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div
+                    class="group p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-boxes-stacked text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl mb-3" data-i18n="feat2Title">إدارة المخزون</h3>
+                    <p class="text-slate-500 dark:text-slate-400" data-i18n="feat2Desc">تتبع مستودعات ووحدات وفئات
+                        متعددة. لا ينفد المخزون أبدًا مع تنبيهات الكمية المنخفضة.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div
+                    class="group p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-chart-pie text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl mb-3" data-i18n="feat3Title">تقارير شاملة</h3>
+                    <p class="text-slate-500 dark:text-slate-400" data-i18n="feat3Desc">رؤى مرئية للأكثر مبيعًا والأرباح
+                        والبيانات المالية. اتخذ قرارات تعتمد على البيانات على الفور.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div
+                    class="group p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center text-purple-600 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-globe text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl mb-3" data-i18n="feat4Title">التعريب والسمات</h3>
+                    <p class="text-slate-500 dark:text-slate-400" data-i18n="feat4Desc">دعم أصلي للغة العربية (RTL)
+                        والإنجليزية. التبديل بين الوضع الداكن المذهل والوضع الفاتح النظيف.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div
+                    class="group p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center text-orange-600 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-wallet text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl mb-3" data-i18n="feat5Title">الرقابة المالية</h3>
+                    <p class="text-slate-500 dark:text-slate-400" data-i18n="feat5Desc">تتبع ديون العملاء ومدفوعات
+                        الموردين وإدارة النفقات. حافظ على توازن دفاتر حساباتك دون عناء.</p>
+                </div>
+
+                <!-- Feature 6 (Generic for grid balance) -->
+                <div
+                    class="group p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-pink-100 dark:bg-pink-900/50 flex items-center justify-center text-pink-600 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl mb-3" data-i18n="feat6Title">آمن ويعمل دون اتصال</h3>
+                    <p class="text-slate-500 dark:text-slate-400" data-i18n="feat6Desc">تبقى بياناتك على جهازك. يعمل
+                        بشكل مثالي بدون إنترنت. نسخ احتياطية محلية آلية لراحة البال.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Showcase -->
+    <section id="showcase" class="py-20 bg-slate-50 dark:bg-slate-800 overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 space-y-8">
+                    <h2 class="text-3xl md:text-4xl" data-i18n="showcaseTitle">مصمم للكفاءة</h2>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start">
+                            <div
+                                class="w-8 h-8 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg mb-1" data-i18n="showcase1Title">واجهة بديهية</h4>
+                                <p class="text-slate-500 dark:text-slate-400" data-i18n="showcase1Desc">تخطيطات نظيفة
+                                    تقلل من إجهاد العين والحمل المعرفي أثناء نوبات العمل الطويلة.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div
+                                class="w-8 h-8 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg mb-1" data-i18n="showcase2Title">اختصارات لوحة المفاتيح</h4>
+                                <p class="text-slate-500 dark:text-slate-400" data-i18n="showcase2Desc">قم بتنفيذ كل
+                                    إجراء دون الوصول إلى الماوس. مصمم للمستخدمين المحترفين.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div
+                                class="w-8 h-8 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg mb-1" data-i18n="showcase3Title">تحليلات مفصلة</h4>
+                                <p class="text-slate-500 dark:text-slate-400" data-i18n="showcase3Desc">تجاوز الأرقام
+                                    البسيطة باستخدام الرسوم البيانية التفاعلية والتفاصيل المفصلة.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#"
+                        class="inline-flex items-center text-brand-600 font-semibold hover:text-brand-700 hover:underline gap-2 rtl:flex-row-reverse">
+                        <span data-i18n="exploreFeatures">استكشف جميع الميزات</span> <i
+                            class="fa-solid fa-arrow-left ml-2 rtl:mr-2 rtl:ml-0 rotate-180 rtl:rotate-0"></i>
+                    </a>
+                </div>
+
+                <div class="lg:w-1/2 relative">
+                    <!-- Decorative Stacked Cards -->
+                    <div
+                        class="relative z-10 rounded-xl shadow-2xl border-4 border-white dark:border-slate-700 overflow-hidden">
+                        <img src="smartstore/images/dashboard2.png" alt="Sales Interface" class="w-full">
+                    </div>
+                    <div
+                        class="absolute -bottom-6 -right-6 rtl:-right-auto rtl:-left-6 z-0 w-full h-full rounded-xl bg-brand-200 dark:bg-brand-900/30 -rotate-3">
+                    </div>
+                    <div
+                        class="absolute -top-6 -left-6 rtl:-left-auto rtl:-right-6 z-0 w-full h-full rounded-xl bg-slate-200 dark:bg-slate-700/50 rotate-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Showcase --> <!-- Note: duplicated section ID, but removing placeholder/duplicate if any -->
+
+    <!-- Why Choose Us -->
+    <section id="benefits" class="py-20 relative bg-brand-600">
+        <div class="absolute inset-0 opacity-10 pattern-dots"></div>
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl text-white mb-4" data-i18n="benefitsTitle">لماذا يختار تجار التجزئة
+                    المتجر الذكي</h2>
+                <p class="text-brand-100 text-lg" data-i18n="benefitsSubtitle">مبني مع الأداء والموثوقية في جوهره.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                    <div class="text-4xl text-white mb-4"><i class="fa-solid fa-bolt"></i></div>
+                    <h3 class="text-xl text-white mb-2" data-i18n="benefit1Title">سريع كالبرق</h3>
+                    <p class="text-brand-50 text-sm" data-i18n="benefit1Desc">قاعدة كود Electron محسنة مصممة لقدرة
+                        الأجهزة منخفضة المواصفات.</p>
+                </div>
+                <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                    <div class="text-4xl text-white mb-4"><i class="fa-solid fa-lock"></i></div>
+                    <h3 class="text-xl text-white mb-2" data-i18n="benefit2Title">قاعدة بيانات آمنة</h3>
+                    <p class="text-brand-50 text-sm" data-i18n="benefit2Desc">تكامل SQLite/MySQL محلي يضمن عدم تسرب
+                        بياناتك المالية أبدًا.</p>
+                </div>
+                <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                    <div class="text-4xl text-white mb-4"><i class="fa-solid fa-arrows-rotate"></i></div>
+                    <h3 class="text-xl text-white mb-2" data-i18n="benefit3Title">تحديثات تلقائية</h3>
+                    <p class="text-brand-50 text-sm" data-i18n="benefit3Desc">تحديثات خلفية سلسة لإبقائك على أحدث
+                        الميزات.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+                            <img src="smartstore/images/logo.png" alt="Smart Store Logo" class="h-8 w-auto">
+                        </div>
+                        <span class="text-xl font-bold text-white">Smart Store</span>
+                    </div>
+                    <p class="text-sm text-slate-500" data-i18n="footerTagline">بسط عمليات التجزئة الخاصة بك اليوم.</p>
+                </div>
+
+                <div class="flex gap-8 mb-6 md:mb-0">
+                    <a href="#" class="hover:text-white transition-colors" data-i18n="footerPrivacy">سياسة الخصوصية</a>
+                    <a href="#" class="hover:text-white transition-colors" data-i18n="footerTerms">شروط الخدمة</a>
+                    <a href="#" class="hover:text-white transition-colors" data-i18n="footerSupport">الدعم</a>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all"><i
+                            class="fa-brands fa-twitter"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all"><i
+                            class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="text-center mt-12 pt-8 border-t border-slate-800 text-sm text-slate-600"
+                data-i18n="footerCopyright">
+                &copy; 2025 Muzamil. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="smartstore/js/main.js"></script>
+</body>
+
+</html>
